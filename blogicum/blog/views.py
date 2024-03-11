@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
 posts = [
@@ -43,6 +44,8 @@ posts = [
     },
 ]
 
+ids = {post['id']: post for post in posts}
+
 
 def index(request):
     template = 'blog/index.html'
@@ -51,8 +54,10 @@ def index(request):
 
 
 def post_detail(request, id):
+    if id not in ids:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
     template = 'blog/detail.html'
-    context = {'post': posts[id]}
+    context = {'post': ids[id]}
     return render(request, template, context)
 
 
