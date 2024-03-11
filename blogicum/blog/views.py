@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-
 posts = [
     {
         'id': 0,
